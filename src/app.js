@@ -1,7 +1,56 @@
+function formatDate(timestamp) {
+  let date = new Date(timestamp);
+  let dayIndex = date.getDay();
+  let daysText = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let currentDay = daysText[dayIndex];
+
+  let hours = date.getHours();
+  if (hours < 10) {
+    hours = "0" + hours;
+  }
+
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
+
+  return `${currentDay.bold()}, ${hours}:${minutes}`;
+}
+
 //search button
 function showWeather(response) {
   let temperature = Math.round(response.data.temperature.current);
-  console.log(temperature);
+  let elementDegree = document.querySelector("#temperature");
+  elementDegree.innerHTML = temperature;
+
+  let descriptionWeather = response.data.condition.description;
+  let elementDescription = document.querySelector("#description");
+  elementDescription.innerHTML = descriptionWeather;
+
+  let humidityPercentage = response.data.temperature.humidity;
+  let elementHumidity = document.querySelector("#humidity");
+  elementHumidity.innerHTML = `${humidityPercentage}%`;
+
+  let windSpeed = Math.round(response.data.wind.speed);
+  let elementWind = document.querySelector("#wind");
+  elementWind.innerHTML = `${windSpeed} m/s`;
+
+  let dayWeekHours = document.querySelector("#current-date-hours");
+  dayWeekHours.innerHTML = formatDate(response.data.time * 1000);
+
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute("src", response.data.condition.icon_url);
+  iconElement.setAttribute("alt", descriptionWeather);
+
+  console.log(response);
 }
 
 function searchCity(event) {
@@ -26,10 +75,35 @@ function searchCity(event) {
 let formEnterCity = document.querySelector("#search-btn");
 formEnterCity.addEventListener("click", searchCity);
 
-//curent button
+//current button
 function showWeatherCurrent(response) {
   let temperature = Math.round(response.data.temperature.current);
-  console.log(temperature);
+  let elementDegree = document.querySelector("#temperature");
+  elementDegree.innerHTML = temperature;
+
+  let currentCity = document.querySelector("#city");
+  currentCity.innerHTML = response.data.city;
+
+  let descriptionWeather = response.data.condition.description;
+  let elementDescription = document.querySelector("#description");
+  elementDescription.innerHTML = descriptionWeather;
+
+  let humidityPercentage = response.data.temperature.humidity;
+  let elementHumidity = document.querySelector("#humidity");
+  elementHumidity.innerHTML = `${humidityPercentage}%`;
+
+  let windSpeed = Math.round(response.data.wind.speed);
+  let elementWind = document.querySelector("#wind");
+  elementWind.innerHTML = `${windSpeed} m/s`;
+
+  let dayWeekHours = document.querySelector("#current-date-hours");
+  dayWeekHours.innerHTML = formatDate(response.data.time * 1000);
+
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute("src", response.data.condition.icon_url);
+  iconElement.setAttribute("alt", descriptionWeather);
+
+  console.log(response);
 }
 
 function determineLocation(position) {

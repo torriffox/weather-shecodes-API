@@ -82,6 +82,7 @@ body {
 }
 #description {
   text-transform: capitalize;
+  font-weight: bold;
 }
 #humidity,
 #wind {
