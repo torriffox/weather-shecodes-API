@@ -104,3 +104,7 @@ body {
   color: rgb(120, 120, 120);
   text-decoration: none;
 }
+
+.mainContant {
+  max-width: 1000px;
+}
