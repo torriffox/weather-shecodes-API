@@ -31,6 +31,8 @@ function showWeather(response) {
   let elementDegree = document.querySelector("#temperature");
   elementDegree.innerHTML = temperature;
 
+  celsiusTemperature = response.data.temperature.current;
+
   let descriptionWeather = response.data.condition.description;
   let elementDescription = document.querySelector("#description");
   elementDescription.innerHTML = descriptionWeather;
