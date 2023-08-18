@@ -103,6 +103,8 @@ function showWeatherCurrent(response) {
   iconElement.setAttribute("src", response.data.condition.icon_url);
   iconElement.setAttribute("alt", descriptionWeather);
 
+  celsiusTemperature = response.data.temperature.current;
+
   console.log(response);
 }
 
@@ -121,3 +123,35 @@ currentButton.addEventListener(
   "click",
   navigator.geolocation.getCurrentPosition(determineLocation)
 );
+
+function showFahrenheitDegree(event) {
+  event.preventDefault();
+
+  //remove the active class the celsius
+  celsiusDegree.classList.remove("active");
+
+  //add the active class the fahrenheit
+  fahrenheitDegree.classList.add("active");
+
+  let elementDegree = document.querySelector("#temperature");
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  elementDegree.innerHTML = Math.round(fahrenheitTemperature);
+}
+
+function showCelsiusDegree(event) {
+  event.preventDefault();
+
+  fahrenheitDegree.classList.remove("active");
+  celsiusDegree.classList.add("active");
+
+  let elementDegree = document.querySelector("#temperature");
+  elementDegree.innerHTML = Math.round(celsiusTemperature);
+}
+
+let celsiusTemperature = null;
+
+let fahrenheitDegree = document.querySelector("#fahrenheitDegree");
+fahrenheitDegree.addEventListener("click", showFahrenheitDegree);
+
+let celsiusDegree = document.querySelector("#celsiusDegree");
+celsiusDegree.addEventListener("click", showCelsiusDegree);

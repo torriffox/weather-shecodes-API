@@ -94,3 +94,13 @@ body {
 .imageOfWeather {
   margin: auto;
 }
+
+.active {
+  color: rgb(120, 120, 120);
+  cursor: default;
+}
+
+.active:hover {
+  color: rgb(120, 120, 120);
+  text-decoration: none;
+}
