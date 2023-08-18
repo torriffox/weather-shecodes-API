@@ -25,6 +25,36 @@ function formatDate(timestamp) {
   return `${currentDay.bold()}, ${hours}:${minutes}`;
 }
 
+function showForecast() {
+  let forecastElement = document.querySelector("#forecast");
+
+  let forecastHTML = `<div class="row">`;
+
+  let days = ["Sat", "Sun", "Mon"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+          <div class="col-2">
+            <div class="forecast-date gray-style">${day}</div>
+            <img
+              src="images/cloud.png"
+              class="image-weather-forecast"
+              alt="cloudy"
+              width="80px"
+            />
+            <div class="forecast-temperature blue-style">
+              <span class="forecast-temperature-max">18°</span>
+              <span class="forecast-temperature-min">12°</span>
+            </div>
+          </div>`;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+
+  forecastElement.innerHTML = forecastHTML;
+}
+
 //search button
 function showWeather(response) {
   let temperature = Math.round(response.data.temperature.current);
@@ -157,3 +187,5 @@ fahrenheitDegree.addEventListener("click", showFahrenheitDegree);
 
 let celsiusDegree = document.querySelector("#celsiusDegree");
 celsiusDegree.addEventListener("click", showCelsiusDegree);
+
+showForecast();
