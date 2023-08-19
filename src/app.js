@@ -25,30 +25,49 @@ function formatDate(timestamp) {
   return `${currentDay.bold()}, ${hours}:${minutes}`;
 }
 
-function showForecast(response) {
-  console.log(response.data.daily);
-  let forecastElement = document.querySelector("#forecast");
+function formatDayForecast(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let dayIndex = date.getDay();
+  let daysText = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let day = daysText[dayIndex];
+  return day;
+}
 
+//function to get forecast weather
+
+function showForecast(response) {
+  console.log(response.data);
+
+  let forecastWeekArray = response.data.daily;
+
+  let forecastElement = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
 
-  let days = ["Sat", "Sun", "Mon"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecastWeekArray.forEach(function (day, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
           <div class="col-2">
-            <div class="forecast-date gray-style">${day}</div>
+            <div class="forecast-date gray-style">${formatDayForecast(
+              day.time
+            )}</div>
             <img
-              src="images/cloud.png"
+              src=${day.condition.icon_url}
               class="image-weather-forecast"
-              alt="cloudy"
+              alt=${day.condition.icon}
               width="80px"
             />
             <div class="forecast-temperature blue-style">
-              <span class="forecast-temperature-max">18°</span>
-              <span class="forecast-temperature-min">12°</span>
+              <span class="forecast-temperature-max">${Math.round(
+                day.temperature.maximum
+              )}°</span>
+              <span class="forecast-temperature-min">${Math.round(
+                day.temperature.minimum
+              )}°</span>
             </div>
           </div>`;
+    }
   });
 
   forecastHTML = forecastHTML + `</div>`;
@@ -56,7 +75,6 @@ function showForecast(response) {
   forecastElement.innerHTML = forecastHTML;
 }
 
-//function to get forecast weather
 function getForecast(coordinates) {
   let apiKey = "ac49tfd4a3a68b207d8do5734e42e190";
   let lon = coordinates.longitude;
