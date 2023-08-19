@@ -25,7 +25,8 @@ function formatDate(timestamp) {
   return `${currentDay.bold()}, ${hours}:${minutes}`;
 }
 
-function showForecast() {
+function showForecast(response) {
+  console.log(response.data.daily);
   let forecastElement = document.querySelector("#forecast");
 
   let forecastHTML = `<div class="row">`;
@@ -55,6 +56,16 @@ function showForecast() {
   forecastElement.innerHTML = forecastHTML;
 }
 
+//function to get forecast weather
+function getForecast(coordinates) {
+  let apiKey = "ac49tfd4a3a68b207d8do5734e42e190";
+  let lon = coordinates.longitude;
+  let lat = coordinates.latitude;
+
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${lon}&lat=${lat}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showForecast);
+}
+
 //search button
 function showWeather(response) {
   let temperature = Math.round(response.data.temperature.current);
@@ -82,7 +93,7 @@ function showWeather(response) {
   iconElement.setAttribute("src", response.data.condition.icon_url);
   iconElement.setAttribute("alt", descriptionWeather);
 
-  console.log(response);
+  getForecast(response.data.coordinates);
 }
 
 function searchCity(event) {
@@ -137,7 +148,7 @@ function showWeatherCurrent(response) {
 
   celsiusTemperature = response.data.temperature.current;
 
-  console.log(response);
+  getForecast(response.data.coordinates);
 }
 
 function determineLocation(position) {
@@ -156,6 +167,7 @@ currentButton.addEventListener(
   navigator.geolocation.getCurrentPosition(determineLocation)
 );
 
+//unit convertions
 function showFahrenheitDegree(event) {
   event.preventDefault();
 
@@ -187,5 +199,3 @@ fahrenheitDegree.addEventListener("click", showFahrenheitDegree);
 
 let celsiusDegree = document.querySelector("#celsiusDegree");
 celsiusDegree.addEventListener("click", showCelsiusDegree);
-
-showForecast();
