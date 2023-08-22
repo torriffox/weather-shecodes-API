@@ -104,3 +104,16 @@ body {
 .mainContant {
   max-width: 900px;
 }
+
+#common-city-kyiv,
+#common-city-lviv,
+#common-city-kherson {
+  text-decoration: underline;
+}
+
+#common-city-kyiv:hover,
+#common-city-lviv:hover,
+#common-city-kherson:hover {
+  text-decoration: none;
+  color: rgb(98, 177, 246);
+}

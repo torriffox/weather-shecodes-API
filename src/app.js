@@ -217,3 +217,42 @@ fahrenheitDegree.addEventListener("click", showFahrenheitDegree);
 
 let celsiusDegree = document.querySelector("#celsiusDegree");
 celsiusDegree.addEventListener("click", showCelsiusDegree);
+
+function showWeatherKyiv() {
+  let city = document.querySelector("#city");
+  city.innerHTML = "Kyiv";
+
+  let apiKey = "ac49tfd4a3a68b207d8do5734e42e190";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=Kyiv&key=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(showWeather);
+}
+
+let weatherKyiv = document.querySelector("#common-city-kyiv");
+weatherKyiv.addEventListener("click", showWeatherKyiv);
+
+function showWeatherLviv() {
+  let city = document.querySelector("#city");
+  city.innerHTML = "Lviv";
+
+  let apiKey = "ac49tfd4a3a68b207d8do5734e42e190";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=Lviv&key=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(showWeather);
+}
+
+let weatherLviv = document.querySelector("#common-city-lviv");
+weatherLviv.addEventListener("click", showWeatherLviv);
+
+function showWeatherKherson() {
+  let city = document.querySelector("#city");
+  city.innerHTML = "Kherson";
+
+  let apiKey = "ac49tfd4a3a68b207d8do5734e42e190";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=Kherson&key=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(showWeather);
+}
+
+let weatherKherson = document.querySelector("#common-city-kherson");
+weatherKherson.addEventListener("click", showWeatherKherson);
